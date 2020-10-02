@@ -1,11 +1,21 @@
 version: "3.8"
 services:
   webapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: node_benchmarking
+    # Uncomment build and container name when running in non-swarm mode
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # container_name: node_benchmarking
+    image: node-performance-benchmarking_webapp
     ports:
       - "8000:8000"
     environment:
-      - "UV_THREADPOOL_SIZE=6"
+      - "UV_THREADPOOL_SIZE=10"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1024M
+        reservations:
+          cpus: "0.5"
+          memory: 1024M
